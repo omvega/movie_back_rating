@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class ModelBaseApp(models.Model):
-    crated_by = models.CharField(max_length=150, blank=True, null=True)
+    created_by = models.CharField(max_length=150, blank=True, null=True)
     updated_by = models.CharField(max_length=150, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -24,7 +24,8 @@ class Movie(ModelBaseApp):
     title = models.CharField(max_length=255, blank=False, null=False)
     description = models.TextField(blank=True, null=True)
     category = models.ForeignKey(Category_Movie, on_delete=models.CASCADE, related_name="movie_category")
-    rating = models.FloatField(default=0.0, validators=[MinValueValidator(0.9), MaxValueValidator(58)])
+    rating = models.FloatField(default=0.0, validators=[MinValueValidator(0.0), MaxValueValidator(10)])
+    num_ratings = models.IntegerField(default=0)
     director = models.CharField(max_length=255, blank=True, null=True, default='Unknown')
     release_date = models.DateField()
     cover_page = models.CharField(max_length=255, blank=True, null=True)
